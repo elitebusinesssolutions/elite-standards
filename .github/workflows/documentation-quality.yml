@@ -7,6 +7,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   lint-and-format:
     runs-on: ubuntu-latest
@@ -25,21 +29,41 @@ jobs:
         run: npm ci
         
       - name: Check markdown formatting
-        run: npm run format:check
+        id: format-check
+        run: ./.github/scripts/check-formatting.sh
+        continue-on-error: true
         
       - name: Run markdown linting
-        run: npm run lint:md
+        id: lint-check
+        run: ./.github/scripts/check-linting.sh
+        continue-on-error: true
         
-      - name: Check for broken links (if any issues found)
-        if: failure()
+      - name: Create PR comment
+        if: github.event_name == 'pull_request'
         run: |
-          echo "❌ Documentation quality checks failed!"
-          echo "Please run 'npm run format' locally to fix formatting issues"
-          echo "and address any remaining linting errors manually."
-          exit 1
+          ./.github/scripts/create-comment.sh \
+            "${{ steps.format-check.outputs.format_status }}" \
+            "${{ steps.format-check.outputs.format_details }}" \
+            "${{ steps.lint-check.outputs.lint_status }}" \
+            "${{ steps.lint-check.outputs.lint_details }}"
           
-      - name: Success message
-        if: success()
+      - name: Comment PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('comment_body.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+            
+      - name: Set final status
         run: |
-          echo "✅ All documentation quality checks passed!"
-          echo "📚 Your documentation follows Elite's standards perfectly."
+          ./.github/scripts/final-status.sh \
+            "${{ steps.format-check.outputs.format_status }}" \
+            "${{ steps.lint-check.outputs.lint_status }}"

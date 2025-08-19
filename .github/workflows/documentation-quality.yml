@@ -1,0 +1,45 @@
+name: Documentation Quality Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Check markdown formatting
+        run: npm run format:check
+        
+      - name: Run markdown linting
+        run: npm run lint:md
+        
+      - name: Check for broken links (if any issues found)
+        if: failure()
+        run: |
+          echo "❌ Documentation quality checks failed!"
+          echo "Please run 'npm run format' locally to fix formatting issues"
+          echo "and address any remaining linting errors manually."
+          exit 1
+          
+      - name: Success message
+        if: success()
+        run: |
+          echo "✅ All documentation quality checks passed!"
+          echo "📚 Your documentation follows Elite's standards perfectly."

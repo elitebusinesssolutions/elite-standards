@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Generated files
+*.generated.md
+
+# Code blocks (preserve formatting)
+# Add specific files here if needed
+
+# Configuration files that should maintain their formatting
+.markdownlint.json
+package.json
+package-lock.json

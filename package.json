@@ -1,0 +1,26 @@
+{
+  "name": "elite-standards",
+  "version": "1.0.0",
+  "description": "Development standards and best practices for Elite Business Solutions",
+  "private": true,
+  "scripts": {
+    "lint:md": "markdownlint **/*.md --ignore node_modules --config .markdownlint.json",
+    "lint:md:fix": "markdownlint **/*.md --ignore node_modules --config .markdownlint.json --fix",
+    "format:md": "prettier --write **/*.md --ignore-path .prettierignore",
+    "format:check": "prettier --check **/*.md --ignore-path .prettierignore",
+    "lint": "npm run lint:md && npm run format:check",
+    "format": "npm run format:md && npm run lint:md:fix"
+  },
+  "devDependencies": {
+    "markdownlint-cli": "^0.37.0",
+    "prettier": "^3.0.3"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "proseWrap": "always",
+    "semi": false,
+    "singleQuote": false,
+    "trailingComma": "none",
+    "bracketSpacing": true
+  }
+}

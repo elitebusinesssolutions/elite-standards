@@ -1,16 +1,16 @@
 # GitHub Actions Scripts
 
-This directory contains shell scripts used by our GitHub Actions workflows to maintain clean and readable workflow
+This directory contains Node.js scripts used by our GitHub Actions workflows to maintain clean and readable workflow
 files.
 
 ## Scripts
 
 ### Documentation Quality Check Scripts
 
-- **`check-formatting.sh`** - Runs Prettier format check and sets outputs
-- **`check-linting.sh`** - Runs markdownlint validation and sets outputs
-- **`create-comment.sh`** - Creates PR comment body with quality check results
-- **`final-status.sh`** - Sets final workflow status based on all checks
+- **`check-formatting.js`** - Runs Prettier format check and sets outputs
+- **`check-linting.js`** - Runs markdownlint validation and sets outputs
+- **`create-comment.js`** - Creates PR comment body with quality check results
+- **`final-status.js`** - Sets final workflow status based on all checks
 
 ## Usage
 
@@ -19,18 +19,27 @@ testing:
 
 ```bash
 # Test formatting check
-./.github/scripts/check-formatting.sh
+node ./.github/scripts/check-formatting.js
 
 # Test linting check
-./.github/scripts/check-linting.sh
+node ./.github/scripts/check-linting.js
 
 # Test comment creation (requires arguments)
-./.github/scripts/create-comment.sh "✅ passed" "All good" "❌ failed" "Issues found"
+node ./.github/scripts/create-comment.js "✅ passed" "All good" "❌ failed" "Issues found"
+
+# Test final status check
+node ./.github/scripts/final-status.js "✅ passed" "✅ passed"
 ```
+
+## Output Files
+
+- **`comment_body.md`** - Generated in `.github/` directory by `create-comment.js` for PR comments
 
 ## Benefits
 
 - **Clean workflows**: Keep YAML files focused on orchestration
+- **Cross-platform**: Node.js scripts work on Windows, macOS, and Linux
 - **Reusable logic**: Scripts can be shared across multiple workflows
 - **Easier testing**: Scripts can be executed and debugged independently
 - **Version control**: Script changes are tracked separately from workflow logic
+- **Organized structure**: Generated files are kept in `.github/` directory

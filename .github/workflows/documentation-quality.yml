@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
           
       - name: Install dependencies
@@ -30,18 +30,18 @@ jobs:
         
       - name: Check markdown formatting
         id: format-check
-        run: ./.github/scripts/check-formatting.sh
+        run: node ./.github/scripts/check-formatting.js
         continue-on-error: true
         
       - name: Run markdown linting
         id: lint-check
-        run: ./.github/scripts/check-linting.sh
+        run: node ./.github/scripts/check-linting.js
         continue-on-error: true
         
       - name: Create PR comment
         if: github.event_name == 'pull_request'
         run: |
-          ./.github/scripts/create-comment.sh \
+          node ./.github/scripts/create-comment.js \
             "${{ steps.format-check.outputs.format_status }}" \
             "${{ steps.format-check.outputs.format_details }}" \
             "${{ steps.lint-check.outputs.lint_status }}" \
@@ -53,7 +53,7 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const body = fs.readFileSync('comment_body.md', 'utf8');
+            const body = fs.readFileSync('.github/comment_body.md', 'utf8');
             
             github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -64,6 +64,6 @@ jobs:
             
       - name: Set final status
         run: |
-          ./.github/scripts/final-status.sh \
+          node ./.github/scripts/final-status.js \
             "${{ steps.format-check.outputs.format_status }}" \
             "${{ steps.lint-check.outputs.lint_status }}"

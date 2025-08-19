@@ -7,18 +7,7 @@ const lintStatus = process.argv[4];
 const lintDetails = process.argv[5];
 
 // Determine overall status
-const formatStatusCode = process.argv[2]; // 'pass' or 'fail'
-const formatDetails = process.argv[3];
-const lintStatusCode = process.argv[4]; // 'pass' or 'fail'
-const lintDetails = process.argv[5];
-
-// Helper to map status code to emoji and text
-function getStatusDisplay(statusCode) {
-  return statusCode === 'pass' ? '✅' : '❌';
-}
-
-// Determine overall status
-const isOverallPass = formatStatusCode === 'pass' && lintStatusCode === 'pass';
+const isOverallPass = formatStatus.includes('✅') && lintStatus.includes('✅');
 const overallStatus = isOverallPass ? '✅ **PASSED**' : '❌ **FAILED**';
 
 const actionMessage = isOverallPass

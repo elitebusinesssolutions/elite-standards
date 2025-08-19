@@ -15,7 +15,7 @@ Follow Microsoft's official guidance:
 
 ### Current Standards
 
-- **Target Framework**: .NET 9.0 (latest)
+- **Target Framework**: .NET 8.0 (latest LTS)
 - **Language Version**: Latest C# version
 - **Nullable Reference Types**: Enabled
 - **Implicit Usings**: Enabled

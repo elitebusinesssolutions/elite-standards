@@ -1,1 +1,4 @@
 node_modules/
+
+# generated files
+.github/comment_body.md

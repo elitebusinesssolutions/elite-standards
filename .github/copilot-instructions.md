@@ -9,11 +9,13 @@ repository, prioritize consistency, maintainability, and adherence to establishe
 
 ### Development Environment Setup
 
-This repository uses a layered tooling approach with clear separation of concerns. For complete setup details, see the main [Development Environment](../README.md#development-environment) documentation.
+This repository uses a layered tooling approach with clear separation of concerns. For complete setup details, see the
+main [Development Environment](../README.md#development-environment) documentation.
 
 Key principles:
+
 - **EditorConfig** (`.editorconfig`): Basic editor settings (indentation, line endings, charset)
-- **Prettier**: Code formatting and style consistency (line wrapping, spacing)  
+- **Prettier**: Code formatting and style consistency (line wrapping, spacing)
 - **markdownlint**: Content structure and markdown best practices
 
 ### Available Commands

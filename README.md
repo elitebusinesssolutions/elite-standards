@@ -70,6 +70,15 @@ npm run lint
 npm run format
 ```
 
+### GitHub Workflows
+
+This repository includes automated quality checks:
+
+- **Documentation Quality Check**: Runs on all pushes and pull requests to ensure formatting and linting standards
+- **Auto-fix Documentation**: Automatically fixes formatting issues in pull requests from repository collaborators
+
+See [.github/workflows/](./.github/workflows/) for workflow configurations.
+
 ## Contributing
 
 When updating standards, please:
@@ -79,6 +88,8 @@ When updating standards, please:
 3. Get peer review
 4. Update relevant documentation
 5. Merge to main
+
+**Note**: GitHub workflows will automatically check and fix formatting issues in pull requests.
 
 ## Last Updated
 

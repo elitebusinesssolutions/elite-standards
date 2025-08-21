@@ -161,7 +161,8 @@ public class UserServiceFixture
 Follow Microsoft's Web API guidance:
 
 - **ASP.NET Core Web API**: [Microsoft Learn - Create Web APIs](https://learn.microsoft.com/en-us/aspnet/core/web-api/)
-- **RESTful API Design**: [Microsoft REST API Guidelines](https://github.com/microsoft/api-guidelines)
+- **RESTful API Design**: [Microsoft REST API Guidelines](https://github.com/microsoft/api-guidelines) and
+  [Microsoft Learn - REST API Design](https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design)
 
 ### Elite API Conventions
 
